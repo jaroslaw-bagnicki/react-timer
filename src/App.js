@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styles from './App.styles.module.scss';
 
-import { Button } from '../Button';
-import { Results } from '../Results';
+import { Button } from './components/Button';
+import { Results } from './components/Results';
 
 export class App extends Component {
   state = {
