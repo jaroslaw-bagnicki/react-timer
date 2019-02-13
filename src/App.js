@@ -24,11 +24,11 @@ export class App extends Component {
           <Button onClick={this.stop} color="red" disabled={!isRunning}>Stop</Button>
         </div>
 
-        <div className={styles.timerLabel}>
+        <div className={styles.timer}>
           {isRunning ? this.renderTime() : stopTimeText || '--:--:--'}
         </div>
 
-        <div>
+        <div className={styles.results}>
           <Button onClick={this.clear} disabled={(!(!!laps.length || !!stopTimeText))}>Clear results</Button>
           <Results laps={laps} />
         </div>
