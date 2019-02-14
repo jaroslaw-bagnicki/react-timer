@@ -4,18 +4,20 @@ import styles from './App.styles.module.scss';
 import { Button } from './components/Button';
 import { Results } from './components/Results';
 
+import { Time } from './models/Time';
+
 export class App extends Component {
   state = {
     isRunning: false,
     startTimestap: null,
     actualTimestap: null,
-    stopTimeText: '',
+    stopTimeDiff: new Time(),
     laps: [],
     timerInterval: null
   }
 
   render() {
-    const { isRunning, stopTimeText, laps } = this.state;
+    const { isRunning, stopTimeDiff, laps } = this.state;
     return (
       <div className={styles.container}>
         <div>
@@ -25,11 +27,11 @@ export class App extends Component {
         </div>
 
         <div className={styles.timer}>
-          {isRunning ? this.renderTime() : stopTimeText || '--:--:--'}
+          {(isRunning ? this.getTimeDiff() : stopTimeDiff).toString()}
         </div>
 
         <div className={styles.results}>
-          <Button onClick={this.clear} disabled={(!(!!laps.length || !!stopTimeText))}>Clear results</Button>
+          <Button onClick={this.clear} disabled={(!(!!laps.length || !(stopTimeDiff.value === null)))}>Clear results</Button>
           <Results laps={laps} />
         </div>
       </div>
@@ -47,7 +49,7 @@ export class App extends Component {
   }
 
   lap = () => {
-    this.setState( ({laps}) => ({laps: [...laps, {no: laps.length + 1, time: this.renderTime()}]}));
+    this.setState( ({laps}) => ({laps: [...laps, {no: laps.length + 1, time: this.getTimeDiff()}]}));
   }
 
   stop = () => {
@@ -55,31 +57,17 @@ export class App extends Component {
       isRunning: false,
       startTimestap: null,
       actualTimestap: null,
-      stopTimeText: this.renderTime(),
+      stopTimeDiff: this.getTimeDiff(),
       timerInterval: clearInterval(timerInterval)
     }));
   }
 
   clear = () => {
     this.setState({
-      stopTimeText: '',
+      stopTimeDiff: new Time(),
       laps: []
     });
   }
 
-  calcTime = () => {
-    const { startTimestap, actualTimestap } = this.state;
-    let diff = Math.round((actualTimestap - startTimestap) / 10);
-    const cs = diff % 100;
-    diff = (diff - cs) / 100;
-    const s = diff % 60;
-    const m = (diff - s) / 60;
-    return {m, s, cs};
-  }
-
-  renderTime = () => {
-    const {m, s, cs} = this.calcTime();
-    const format = (number) => number.toString().padStart(2, '0');
-    return `${format(m)}:${format(s)}:${format(cs)}`;
-  }
+  getTimeDiff = () => new Time(this.state.actualTimestap - this.state.startTimestap);
 }
