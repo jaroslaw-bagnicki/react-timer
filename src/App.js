@@ -21,9 +21,9 @@ export class App extends Component {
     return (
       <div className={styles.container}>
         <div>
-          <Button onClick={this.start} color="green" disabled={isRunning}>Start</Button>
-          <Button onClick={this.lap} color="yellow" disabled={!isRunning}>Lap</Button>
-          <Button onClick={this.stop} color="red" disabled={!isRunning}>Stop</Button>
+          <Button onClick={this.start} name="start" disabled={isRunning}>Start</Button>
+          <Button onClick={this.lap} name="lap" disabled={!isRunning}>Lap</Button>
+          <Button onClick={this.stop} name="stop" disabled={!isRunning}>Stop</Button>
         </div>
 
         <div className={styles.timer}>
@@ -31,7 +31,7 @@ export class App extends Component {
         </div>
 
         <div className={styles.results}>
-          <Button onClick={this.clear} disabled={(!(!!laps.length || !(stopTimeDiff.value === null)))}>Clear results</Button>
+          <Button onClick={this.clear} name="clear" disabled={(!(!!laps.length || !(stopTimeDiff.value === null)))}>Clear results</Button>
           <Results laps={laps} />
         </div>
       </div>

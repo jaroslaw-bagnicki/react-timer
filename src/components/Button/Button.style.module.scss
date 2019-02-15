@@ -21,22 +21,22 @@
 
   &:not(:disabled):hover {
     font-weight: 700;
-    color: $dark-font-color;
-    border-color: $dark-font-color;
+    color: $default-btn-color;
+    border-color: $default-btn-color;
 
-    &.green {
-      color: $green-font-color;
-      border-color: $green-font-color;
+    &.start {
+      color: $start-btn-color;
+      border-color: $start-btn-color;
     }
 
-    &.yellow {
-      color: $yellow-font-color;
-      border-color: $yellow-font-color;
+    &.lap {
+      color: $lap-btn-color;
+      border-color: $lap-btn-color;
     }
 
-    &.red {
-      color: $red-font-color;
-      border-color: $red-font-color;
+    &.stop {
+      color: $stop-btn-color;
+      border-color: $stop-btn-color;
     }
   }
 }

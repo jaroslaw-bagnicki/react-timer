@@ -11,13 +11,13 @@ export class Time {
     if (this.value === null) {
       return '--:--:--';
     } else {
-      const {m, s, cs} = this.toJSON();
+      const {m, s, cs} = this.MSCsFormat;
       const format = (number) => number.toString().padStart(2, '0');
       return `${format(m)}:${format(s)}:${format(cs)}`;
     }
   }
 
-  toJSON() {
+  get MSCsFormat() {
     let diff = Math.round((this.value) / 10);
     const cs = diff % 100;
     diff = (diff - cs) / 100;
