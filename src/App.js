@@ -7,13 +7,18 @@ import { Results } from './components/Results';
 import { Time } from './models/Time';
 
 export class App extends Component {
-  state = {
-    isRunning: false,
-    startTimestap: null,
-    actualTimestap: null,
-    stopTimeDiff: new Time(),
-    laps: [],
-    timerInterval: null
+  constructor() {
+    super();
+
+    this.state = {
+      isRunning: false,
+      startTimestap: null,
+      actualTimestap: null,
+      stopTimeDiff: new Time(),
+      laps: []
+    };
+
+    this.timerInterval = null;
   }
 
   render() {
@@ -39,11 +44,12 @@ export class App extends Component {
   }
 
   start = () => {
+    this.timerInterval = setInterval(() => this.setState({actualTimestap: Date.now()}), 90);
+
     this.setState({
       isRunning: true,
       startTimestap: Date.now(),
       actualTimestap: Date.now(),
-      timerInterval: setInterval(() => this.setState({actualTimestap: Date.now()}), 90),
       laps: []
     });
   }
@@ -53,13 +59,14 @@ export class App extends Component {
   }
 
   stop = () => {
-    this.setState(({timerInterval}) => ({
+    clearInterval(this.timerInterval);
+
+    this.setState = {
       isRunning: false,
       startTimestap: null,
       actualTimestap: null,
-      stopTimeDiff: this.getTimeDiff(),
-      timerInterval: clearInterval(timerInterval)
-    }));
+      stopTimeDiff: this.getTimeDiff()
+    };
   }
 
   clear = () => {
