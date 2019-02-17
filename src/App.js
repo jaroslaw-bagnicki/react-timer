@@ -36,7 +36,7 @@ export class App extends Component {
         </div>
 
         <div className={styles.results}>
-          <Button onClick={this.clear} name="clear" disabled={(!(!!laps.length || !(stopTimeDiff.value === null)))}>Clear results</Button>
+          <Button onClick={this.clear} name="clear" disabled={this.isNoResultsToClear()}>Clear results</Button>
           <Results laps={laps} />
         </div>
       </div>
@@ -76,4 +76,6 @@ export class App extends Component {
   }
 
   getTimeDiff = () => new Time(this.state.actualTimestap - this.state.startTimestap);
+
+  isNoResultsToClear = () => (!this.state.laps.length && (this.state.stopTimeDiff.value === null));
 }
