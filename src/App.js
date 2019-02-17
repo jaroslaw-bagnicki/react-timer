@@ -60,13 +60,12 @@ export class App extends Component {
 
   stop = () => {
     clearInterval(this.timerInterval);
-
-    this.setState = {
+    this.setState({
       isRunning: false,
       startTimestap: null,
       actualTimestap: null,
       stopTimeDiff: this.getTimeDiff()
-    };
+    });
   }
 
   clear = () => {
